@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  # Django web application
+  web:
+    image: python:3.8  # You can use a specific Django image if available
+    container_name: django_web
+    command: bash -c "pip install -r requirements.txt && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./Vessel_Dashboard:/app  # Replace "your_django_project" with your actual project folder
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DJANGO_DB_HOST=db
+      - DJANGO_DB_PORT=3306
+      - DJANGO_DB_NAME=SIH_DB
+      - DJANGO_DB_USER=SIH_User
+      - DJANGO_DB_PASSWORD=SIH#2023
+    networks:
+      - app_network
+
+  # MySQL database
+  db:
+    image: mysql:5.7
+    container_name: mysql_db
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=SIH#2023
+      - MYSQL_DATABASE=SIH_DB
+      - MYSQL_USER=SIH_User
+      - MYSQL_PASSWORD=SIH#2023
+    ports:
+      - "3305:3305"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local

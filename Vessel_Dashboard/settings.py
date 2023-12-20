@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'Users',
     'Ports',
-    'Notifications'
+    'Notifications',
+    'Models'
 ]
 
 MIDDLEWARE = [

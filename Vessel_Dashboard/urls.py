@@ -22,4 +22,5 @@ urlpatterns = [
     path('users/', include('Users.urls')),
     path('ports/', include('Ports.urls')),
     path('notifications/', include('Notifications.urls')),
+    path('models/', include('Models.urls')),
 ]
