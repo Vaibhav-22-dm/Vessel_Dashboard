@@ -3,11 +3,11 @@ version: '3'
 services:
   # Django web application
   web:
-    image: python:3.8  # You can use a specific Django image if available
+    build: .
     container_name: django_web
-    command: bash -c "pip install -r requirements.txt && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
-      - ./Vessel_Dashboard:/app  # Replace "your_django_project" with your actual project folder
+      - .:/Vessel_Dashboard  # Replace "your_django_project" with your actual project folder
     ports:
       - "8000:8000"
     depends_on:
