@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'Users',
-    'Ports'
+    'Ports',
+    'Notifications'
 ]
 
 MIDDLEWARE = [
@@ -70,8 +73,20 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Vessel_Dashboard.wsgi.application'
+SECRET = 'D52A7E5F3BC4447A51F3D562A52C3'
+ALGO = 'HS256'
 
+# WSGI_APPLICATION = 'Vessel_Dashboard.wsgi.application'
+
+ASGI_APPLICATION = "Vessel_Dashboard.asgi.application"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
